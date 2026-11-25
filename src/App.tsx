@@ -94,7 +94,10 @@ export default function App() {
   };
 
   const handleSaveCollaborator = (input: CollaboratorInput, existingId?: string) => {
-    const parsedYear = Number(input.ano_contratacao);
+    const hireDate =
+      input.data_contratacao?.trim() ||
+      `${Number(input.ano_contratacao) || new Date().getFullYear()}-01-01`;
+    const parsedYear = Number(hireDate.slice(0, 4)) || new Date().getFullYear();
 
     if (existingId) {
       setCollaborators((prev) =>
@@ -107,8 +110,15 @@ export default function App() {
                 telefone: input.telefone,
                 email: input.email,
                 ano_contratacao: parsedYear,
+                data_contratacao: hireDate,
                 status: input.status,
                 foto_perfil: input.foto_perfil,
+                departamento: input.departamento,
+                localizacao: input.localizacao,
+                horario_atendimento: input.horario_atendimento,
+                idiomas: input.idiomas,
+                especialidades: input.especialidades,
+                bio: input.bio,
               }
             : person,
         ),
@@ -122,8 +132,15 @@ export default function App() {
         telefone: input.telefone,
         email: input.email,
         ano_contratacao: parsedYear,
+        data_contratacao: hireDate,
         status: input.status,
         foto_perfil: input.foto_perfil,
+        departamento: input.departamento,
+        localizacao: input.localizacao,
+        horario_atendimento: input.horario_atendimento,
+        idiomas: input.idiomas,
+        especialidades: input.especialidades,
+        bio: input.bio,
       };
       setCollaborators((prev) => [created, ...prev]);
       setNotice(`${input.nome_completo} adicionado à equipa.`);
@@ -184,6 +201,8 @@ export default function App() {
       ) : route.view === 'profile' ? (
         <CollaboratorProfilePage
           collaborator={getPublicCollaboratorById(collaborators, route.collaboratorId)}
+          allCollaborators={collaborators}
+          onSelectCollaborator={(id) => navigate(`/colaborador/${encodeURIComponent(id)}`)}
           onBackToShowcase={() => navigate('/')}
           onNavigateAdmin={() => navigate('/admin')}
         />

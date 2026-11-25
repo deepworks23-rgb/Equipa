@@ -52,7 +52,7 @@ export function DeleteConfirmModal({
           <strong className="text-[#111827]">{collaborator.nome_completo}</strong> ({collaborator.cargo})?
         </p>
 
-        <div className="mt-6 flex items-center justify-end gap-3">
+        <div className="mt-6 flex flex-col-reverse sm:flex-row items-stretch sm:items-center sm:justify-end gap-2.5 sm:gap-3">
           <button
             type="button"
             onClick={onCancel}

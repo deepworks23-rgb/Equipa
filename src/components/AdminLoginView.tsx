@@ -33,13 +33,13 @@ export function AdminLoginView({ onSuccess, onNavigatePublic }: AdminLoginViewPr
   };
 
   return (
-    <div className="h-screen w-full overflow-y-auto bg-[#F8FAFC] flex flex-col justify-center items-center px-4 py-6">
-      <div className="w-full max-w-md bg-white border border-[#E2E8F0] rounded-xl p-8 shadow-level-3">
-        <div className="pb-5 border-b border-[#E2E8F0]">
+    <div className="h-dvh w-full overflow-y-auto bg-[#F8FAFC] flex flex-col justify-center items-center px-3 sm:px-4 py-4 sm:py-6">
+      <div className="w-full max-w-md shrink-0 bg-white border border-[#E2E8F0] rounded-xl p-5 sm:p-8 shadow-level-3">
+        <div className="pb-4 sm:pb-5 border-b border-[#E2E8F0]">
           <img
             src="/assets/aistudio/logo-transparent_81b43745.png"
             alt="Lecasu — Energy and Engineering Solutions"
-            className="h-10 w-auto object-contain"
+            className="h-8 sm:h-10 w-auto object-contain"
           />
           <div className="mt-4 flex items-center gap-2.5">
             <div className="h-8 w-8 rounded-lg bg-[#FFF4E5] border border-[#FFD6A8] text-[#C25900] flex items-center justify-center shrink-0">
