@@ -6,13 +6,7 @@ import { CollaboratorFormModal } from './components/CollaboratorFormModal';
 import { CollaboratorProfilePage } from './components/CollaboratorProfilePage';
 import { DeleteConfirmModal } from './components/DeleteConfirmModal';
 import { PublicShowcaseView } from './components/PublicShowcaseView';
-import {
-  loadAdminSession,
-  loadCollaborators,
-  saveAdminSession,
-  saveCollaborators,
-  SEED_COLLABORATORS,
-} from './data/seedCollaborators';
+import { SEED_COLLABORATORS } from './data/seedCollaborators';
 import {
   getPublicCollaboratorById,
   type Collaborator,
@@ -28,7 +22,12 @@ type RouteState =
 function resolveRoute(): RouteState {
   if (typeof window === 'undefined') return { view: 'public' };
   const pathname = window.location.pathname;
-  if (pathname.startsWith('/admin')) {
+  if (
+    pathname === '/admin' ||
+    pathname.startsWith('/admin/') ||
+    pathname === '/painel-admin' ||
+    pathname.startsWith('/painel-admin/')
+  ) {
     return { view: 'admin' };
   }
   if (pathname.startsWith('/colaborador/')) {
@@ -42,12 +41,11 @@ function resolveRoute(): RouteState {
 
 export default function App() {
   const [route, setRoute] = useState<RouteState>(() => resolveRoute());
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() =>
-    loadAdminSession(),
+  const [adminToken, setAdminToken] = useState<string | null>(null);
+  const [publicCollaborators, setPublicCollaborators] = useState<Collaborator[]>(() =>
+    SEED_COLLABORATORS.filter((person) => person.status !== 'Rescindido'),
   );
-  const [collaborators, setCollaborators] = useState<Collaborator[]>(() =>
-    loadCollaborators(),
-  );
+  const [adminCollaborators, setAdminCollaborators] = useState<Collaborator[]>([]);
 
   const [formState, setFormState] = useState<{
     open: boolean;
@@ -67,8 +65,69 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    saveCollaborators(collaborators);
-  }, [collaborators]);
+    if (route.view === 'admin') {
+      document.title = 'Painel Administrativo — Lecasu';
+    } else {
+      document.title = 'A Nossa Equipa — Lecasu · Energy and Engineering Solutions';
+    }
+  }, [route.view]);
+
+  useEffect(() => {
+    if (route.view === 'admin') return;
+    let active = true;
+    fetch('/api/public/collaborators', { cache: 'no-store' })
+      .then(async (res) => {
+        if (!res.ok) return null;
+        return (await res.json()) as { collaborators?: Collaborator[] };
+      })
+      .then((data) => {
+        if (active && data?.collaborators) {
+          setPublicCollaborators(data.collaborators);
+        }
+      })
+      .catch(() => {
+        // Keep current public roster on transient network errors
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [route.view]);
+
+  useEffect(() => {
+    if (route.view !== 'admin' || !adminToken) return;
+    let active = true;
+
+    fetch('/api/admin/collaborators', {
+      headers: { Authorization: `Bearer ${adminToken}` },
+      cache: 'no-store',
+    })
+      .then(async (res) => {
+        if (res.status === 401) {
+          if (active) {
+            setAdminToken(null);
+            setNotice('Sessão expirada. Inicie sessão novamente.');
+          }
+          return null;
+        }
+        if (!res.ok) return null;
+        return (await res.json()) as { collaborators?: Collaborator[] };
+      })
+      .then((data) => {
+        if (active && data?.collaborators) {
+          setAdminCollaborators(data.collaborators);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setNotice('Não foi possível carregar os colaboradores.');
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [route.view, adminToken]);
 
   useEffect(() => {
     if (!notice) return;
@@ -83,104 +142,171 @@ export default function App() {
     setRoute(resolveRoute());
   };
 
-  const handleAdminLoginSuccess = () => {
-    saveAdminSession(true);
-    setIsAdminAuthenticated(true);
+  const handleAdminLoginSuccess = (token: string) => {
+    setAdminToken(token);
   };
 
-  const handleAdminLogout = () => {
-    saveAdminSession(false);
-    setIsAdminAuthenticated(false);
-  };
-
-  const handleSaveCollaborator = (input: CollaboratorInput, existingId?: string) => {
-    const hireDate =
-      input.data_contratacao?.trim() ||
-      `${Number(input.ano_contratacao) || new Date().getFullYear()}-01-01`;
-    const parsedYear = Number(hireDate.slice(0, 4)) || new Date().getFullYear();
-
-    if (existingId) {
-      setCollaborators((prev) =>
-        prev.map((person) =>
-          person.id === existingId
-            ? {
-                ...person,
-                nome_completo: input.nome_completo,
-                cargo: input.cargo,
-                telefone: input.telefone,
-                email: input.email,
-                ano_contratacao: parsedYear,
-                data_contratacao: hireDate,
-                status: input.status,
-                foto_perfil: input.foto_perfil,
-                departamento: input.departamento,
-                localizacao: input.localizacao,
-                horario_atendimento: input.horario_atendimento,
-                idiomas: input.idiomas,
-                especialidades: input.especialidades,
-                bio: input.bio,
-              }
-            : person,
-        ),
-      );
-      setNotice(`Dados de ${input.nome_completo} atualizados.`);
-    } else {
-      const created: Collaborator = {
-        id: `col-${Date.now()}`,
-        nome_completo: input.nome_completo,
-        cargo: input.cargo,
-        telefone: input.telefone,
-        email: input.email,
-        ano_contratacao: parsedYear,
-        data_contratacao: hireDate,
-        status: input.status,
-        foto_perfil: input.foto_perfil,
-        departamento: input.departamento,
-        localizacao: input.localizacao,
-        horario_atendimento: input.horario_atendimento,
-        idiomas: input.idiomas,
-        especialidades: input.especialidades,
-        bio: input.bio,
-      };
-      setCollaborators((prev) => [created, ...prev]);
-      setNotice(`${input.nome_completo} adicionado à equipa.`);
+  const handleAdminLogout = async () => {
+    const tokenToRevoke = adminToken;
+    setAdminToken(null);
+    setAdminCollaborators([]);
+    if (!tokenToRevoke) return;
+    try {
+      await fetch('/api/admin/auth/logout', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${tokenToRevoke}` },
+      });
+    } catch {
+      // Token cleared in memory regardless of network state
     }
-
-    setFormState({ open: false, mode: 'create', collaborator: null });
   };
 
-  const handleStatusChange = (id: string, nextStatus: CollaboratorStatus) => {
-    const target = collaborators.find((c) => c.id === id);
+  const handleSaveCollaborator = async (input: CollaboratorInput, existingId?: string) => {
+    if (!adminToken) return;
+    const endpoint = existingId
+      ? `/api/admin/collaborators/${encodeURIComponent(existingId)}`
+      : '/api/admin/collaborators';
+    const method = existingId ? 'PUT' : 'POST';
+
+    try {
+      const res = await fetch(endpoint, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${adminToken}`,
+        },
+        body: JSON.stringify(input),
+      });
+
+      if (res.status === 401) {
+        setAdminToken(null);
+        setNotice('Sessão expirada. Inicie sessão novamente.');
+        return;
+      }
+
+      const data = (await res.json()) as { collaborators?: Collaborator[]; error?: string };
+      if (!res.ok || !data.collaborators) {
+        setNotice(data.error ?? 'Erro ao guardar colaborador.');
+        return;
+      }
+
+      setAdminCollaborators(data.collaborators);
+      setPublicCollaborators(data.collaborators.filter((p) => p.status !== 'Rescindido'));
+      setFormState({ open: false, mode: 'create', collaborator: null });
+      setNotice(
+        existingId
+          ? `Dados de ${input.nome_completo} atualizados.`
+          : `${input.nome_completo} adicionado à equipa.`,
+      );
+    } catch {
+      setNotice('Erro de ligação ao guardar colaborador.');
+    }
+  };
+
+  const handleStatusChange = async (id: string, nextStatus: CollaboratorStatus) => {
+    if (!adminToken) return;
+    const target = adminCollaborators.find((c) => c.id === id);
     if (!target || target.status === nextStatus) return;
 
-    setCollaborators((prev) =>
-      prev.map((person) =>
-        person.id === id ? { ...person, status: nextStatus } : person,
-      ),
-    );
-    setNotice(`Status de ${target.nome_completo} alterado para ${nextStatus}.`);
-  };
+    try {
+      const res = await fetch(`/api/admin/collaborators/${encodeURIComponent(id)}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${adminToken}`,
+        },
+        body: JSON.stringify({ status: nextStatus }),
+      });
 
-  const handleConfirmDelete = (id: string) => {
-    const target = collaborators.find((c) => c.id === id);
-    setCollaborators((prev) => prev.filter((person) => person.id !== id));
-    setPendingDelete(null);
-    if (target) {
-      setNotice(`${target.nome_completo} excluído.`);
+      if (res.status === 401) {
+        setAdminToken(null);
+        setNotice('Sessão expirada. Inicie sessão novamente.');
+        return;
+      }
+
+      const data = (await res.json()) as { collaborators?: Collaborator[]; error?: string };
+      if (!res.ok || !data.collaborators) {
+        setNotice(data.error ?? 'Erro ao atualizar status.');
+        return;
+      }
+
+      setAdminCollaborators(data.collaborators);
+      setPublicCollaborators(data.collaborators.filter((p) => p.status !== 'Rescindido'));
+      setNotice(`Status de ${target.nome_completo} alterado para ${nextStatus}.`);
+    } catch {
+      setNotice('Erro de ligação ao atualizar status.');
     }
   };
 
-  const handleResetSeed = () => {
-    setCollaborators(SEED_COLLABORATORS);
-    setNotice('Lista inicial restaurada (4 Ativos, 1 Férias, 1 Rescindido).');
+  const handleConfirmDelete = async (id: string) => {
+    if (!adminToken) return;
+    const target = adminCollaborators.find((c) => c.id === id);
+
+    try {
+      const res = await fetch(`/api/admin/collaborators/${encodeURIComponent(id)}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${adminToken}` },
+      });
+
+      if (res.status === 401) {
+        setAdminToken(null);
+        setPendingDelete(null);
+        setNotice('Sessão expirada. Inicie sessão novamente.');
+        return;
+      }
+
+      const data = (await res.json()) as { collaborators?: Collaborator[]; error?: string };
+      if (!res.ok || !data.collaborators) {
+        setNotice(data.error ?? 'Erro ao excluir colaborador.');
+        return;
+      }
+
+      setAdminCollaborators(data.collaborators);
+      setPublicCollaborators(data.collaborators.filter((p) => p.status !== 'Rescindido'));
+      setPendingDelete(null);
+      if (target) {
+        setNotice(`${target.nome_completo} excluído.`);
+      }
+    } catch {
+      setNotice('Erro de ligação ao excluir colaborador.');
+    }
+  };
+
+  const handleResetSeed = async () => {
+    if (!adminToken) return;
+
+    try {
+      const res = await fetch('/api/admin/collaborators/reset', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${adminToken}` },
+      });
+
+      if (res.status === 401) {
+        setAdminToken(null);
+        setNotice('Sessão expirada. Inicie sessão novamente.');
+        return;
+      }
+
+      const data = (await res.json()) as { collaborators?: Collaborator[]; error?: string };
+      if (!res.ok || !data.collaborators) {
+        setNotice(data.error ?? 'Erro ao restaurar base.');
+        return;
+      }
+
+      setAdminCollaborators(data.collaborators);
+      setPublicCollaborators(data.collaborators.filter((p) => p.status !== 'Rescindido'));
+      setNotice('Lista inicial restaurada (4 Ativos, 1 Férias, 1 Rescindido).');
+    } catch {
+      setNotice('Erro de ligação ao restaurar base.');
+    }
   };
 
   return (
     <>
       {route.view === 'admin' ? (
-        isAdminAuthenticated ? (
+        adminToken ? (
           <AdminDashboardView
-            collaborators={collaborators}
+            collaborators={adminCollaborators}
             onOpenCreate={() =>
               setFormState({ open: true, mode: 'create', collaborator: null })
             }
@@ -200,17 +326,15 @@ export default function App() {
         )
       ) : route.view === 'profile' ? (
         <CollaboratorProfilePage
-          collaborator={getPublicCollaboratorById(collaborators, route.collaboratorId)}
-          allCollaborators={collaborators}
+          collaborator={getPublicCollaboratorById(publicCollaborators, route.collaboratorId)}
+          allCollaborators={publicCollaborators}
           onSelectCollaborator={(id) => navigate(`/colaborador/${encodeURIComponent(id)}`)}
           onBackToShowcase={() => navigate('/')}
-          onNavigateAdmin={() => navigate('/admin')}
         />
       ) : (
         <PublicShowcaseView
-          collaborators={collaborators}
+          collaborators={publicCollaborators}
           onSelectCollaborator={(id) => navigate(`/colaborador/${encodeURIComponent(id)}`)}
-          onNavigateAdmin={() => navigate('/admin')}
         />
       )}
 

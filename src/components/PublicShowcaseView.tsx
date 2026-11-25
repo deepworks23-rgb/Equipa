@@ -1,4 +1,4 @@
-import { ArrowRight, Calendar, ChevronDown, Lock, Mail, MessageCircle, Phone, Search, X } from 'lucide-react';
+import { ArrowRight, Calendar, ChevronDown, Mail, MessageCircle, Phone, Search, X } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import {
   buildMailtoUrl,
@@ -15,13 +15,11 @@ import { StatusChip } from './StatusChip';
 interface PublicShowcaseViewProps {
   collaborators: Collaborator[];
   onSelectCollaborator: (id: string) => void;
-  onNavigateAdmin: () => void;
 }
 
 export function PublicShowcaseView({
   collaborators,
   onSelectCollaborator,
-  onNavigateAdmin,
 }: PublicShowcaseViewProps) {
   const [query, setQuery] = useState('');
   const [selectedCargo, setSelectedCargo] = useState('Todos');
@@ -266,22 +264,10 @@ export function PublicShowcaseView({
         </div>
       </main>
 
-      {/* Rodapé Institucional com apenas ícone discreto para /admin */}
+      {/* Rodapé Institucional Limpo — Sem links administrativos */}
       <footer className="shrink-0 border-t border-[#E2E8F0] bg-white">
         <div className="max-w-[1440px] mx-auto px-3 sm:px-4 md:px-8 py-2 sm:py-3 flex items-center justify-between gap-2 sm:gap-4 text-[11px] sm:text-xs text-[#64748B]">
           <p className="truncate">© {new Date().getFullYear()} Lecasu · Energy and Engineering Solutions</p>
-          <a
-            href="/admin"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigateAdmin();
-            }}
-            aria-label="Acesso administrativo"
-            title="Acesso administrativo"
-            className="shrink-0 p-1.5 rounded-md text-[#94A3B8] hover:text-[#111827] hover:bg-[#FFF4E5] transition-colors"
-          >
-            <Lock className="w-3.5 h-3.5" aria-hidden="true" />
-          </a>
         </div>
       </footer>
     </div>

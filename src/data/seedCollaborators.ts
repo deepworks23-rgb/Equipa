@@ -1,7 +1,6 @@
-import { type Collaborator } from '../utils/talentLogic';
+import type { Collaborator } from '../utils/talentLogic.ts';
 
 export const STORAGE_KEY = 'meridian_equipa_colaboradores_v2';
-export const ADMIN_SESSION_KEY = 'meridian_admin_authenticated_v1';
 
 // 6 colaboradores iniciais: 4 Ativos, 1 em Férias, 1 Rescindido
 export const SEED_COLLABORATORS: Collaborator[] = [
@@ -165,27 +164,5 @@ export function saveCollaborators(collaborators: Collaborator[]): void {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(collaborators));
   } catch {
     // Ignore storage quota errors
-  }
-}
-
-export function loadAdminSession(): boolean {
-  if (typeof window === 'undefined') return false;
-  try {
-    return window.sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
-  } catch {
-    return false;
-  }
-}
-
-export function saveAdminSession(authenticated: boolean): void {
-  if (typeof window === 'undefined') return;
-  try {
-    if (authenticated) {
-      window.sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
-    } else {
-      window.sessionStorage.removeItem(ADMIN_SESSION_KEY);
-    }
-  } catch {
-    // Ignore sessionStorage restrictions
   }
 }

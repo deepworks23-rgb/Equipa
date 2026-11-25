@@ -11,7 +11,6 @@ import {
   Download,
   Globe,
   Hash,
-  Lock,
   Mail,
   MapPin,
   MessageCircle,
@@ -43,7 +42,6 @@ interface CollaboratorProfilePageProps {
   allCollaborators: Collaborator[];
   onSelectCollaborator: (id: string) => void;
   onBackToShowcase: () => void;
-  onNavigateAdmin: () => void;
 }
 
 export function CollaboratorProfilePage({
@@ -51,7 +49,6 @@ export function CollaboratorProfilePage({
   allCollaborators,
   onSelectCollaborator,
   onBackToShowcase,
-  onNavigateAdmin,
 }: CollaboratorProfilePageProps) {
   const [copiedKey, setCopiedKey] = useState<'phone' | 'email' | 'share' | null>(null);
   const [qrDataUrl, setQrDataUrl] = useState<string>('');
@@ -617,22 +614,10 @@ export function CollaboratorProfilePage({
         )}
       </main>
 
-      {/* Rodapé Institucional */}
+      {/* Rodapé Institucional Limpo — Sem links administrativos */}
       <footer className="shrink-0 border-t border-[#E2E8F0] bg-white">
         <div className="max-w-[1440px] mx-auto px-3 sm:px-4 md:px-8 py-2 sm:py-3 flex items-center justify-between gap-2 sm:gap-4 text-[11px] sm:text-xs text-[#64748B]">
           <p className="truncate">© {new Date().getFullYear()} Lecasu · Energy and Engineering Solutions</p>
-          <a
-            href="/admin"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigateAdmin();
-            }}
-            aria-label="Acesso administrativo"
-            title="Acesso administrativo"
-            className="shrink-0 p-1.5 rounded-md text-[#94A3B8] hover:text-[#111827] hover:bg-[#FFF4E5] transition-colors"
-          >
-            <Lock className="w-3.5 h-3.5" aria-hidden="true" />
-          </a>
         </div>
       </footer>
     </div>
