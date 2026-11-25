@@ -5,22 +5,26 @@
   --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-navy-950: #00142f;
-  --color-navy-900: #0f294a;
-  --color-navy-800: #1e3a8a;
-  --color-cobalt-600: #0058be;
-  --color-cobalt-500: #3b82f6;
+  --color-brand-orange: #fe8100;
+  --color-brand-orange-hover: #e57400;
+  --color-brand-orange-dark: #c25900;
+  --color-brand-ink: #111827;
+  --color-navy-950: #090d16;
+  --color-navy-900: #111827;
+  --color-navy-800: #1f2937;
+  --color-cobalt-600: #c25900;
+  --color-cobalt-500: #fe8100;
   --color-canvas: #f8fafc;
-  --color-canvas-tint: #f8f9ff;
-  --color-surface-low: #eff4ff;
+  --color-canvas-tint: #fffaf5;
+  --color-surface-low: #fff4e5;
   --color-border-subtle: #e2e8f0;
-  --color-ink: #1e293b;
-  --color-ink-strong: #0b1c30;
+  --color-ink: #111827;
+  --color-ink-strong: #0b0d12;
   --color-ink-muted: #64748b;
 
-  --shadow-level-1: 0 1px 3px 0 rgba(15, 41, 74, 0.05), 0 1px 2px -1px rgba(15, 41, 74, 0.03);
-  --shadow-level-2: 0 10px 15px -3px rgba(15, 41, 74, 0.08), 0 4px 6px -4px rgba(15, 41, 74, 0.03);
-  --shadow-level-3: 0 20px 25px -5px rgba(15, 41, 74, 0.12), 0 8px 10px -6px rgba(15, 41, 74, 0.05);
+  --shadow-level-1: 0 1px 3px 0 rgba(17, 24, 39, 0.05), 0 1px 2px -1px rgba(17, 24, 39, 0.03);
+  --shadow-level-2: 0 10px 15px -3px rgba(17, 24, 39, 0.08), 0 4px 6px -4px rgba(17, 24, 39, 0.03);
+  --shadow-level-3: 0 20px 25px -5px rgba(17, 24, 39, 0.12), 0 8px 10px -6px rgba(17, 24, 39, 0.05);
 }
 
 @layer base {

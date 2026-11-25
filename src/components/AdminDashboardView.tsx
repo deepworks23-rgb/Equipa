@@ -51,18 +51,18 @@ export function AdminDashboardView({
   );
 
   return (
-    <div className="h-screen w-full overflow-hidden flex flex-col bg-[#F8FAFC] text-[#1E293B]">
+    <div className="h-screen w-full overflow-hidden flex flex-col bg-[#F8FAFC] text-[#111827]">
       {/* Cabeçalho Administrativo */}
       <header className="shrink-0 z-30 bg-white border-b border-[#E2E8F0]">
         <div className="max-w-[1440px] mx-auto px-4 md:px-8 h-14 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <span
-              className="h-8 w-8 rounded-lg bg-[#0F294A] text-white flex items-center justify-center text-sm font-bold shrink-0"
-              aria-hidden="true"
-            >
-              M
-            </span>
-            <span className="font-display text-base sm:text-lg font-bold tracking-tight text-[#0F294A] truncate">
+          <div className="flex items-center gap-3 min-w-0">
+            <img
+              src="/assets/aistudio/logo-transparent_81b43745.png"
+              alt="Lecasu — Energy and Engineering Solutions"
+              className="h-8 sm:h-9 w-auto object-contain shrink-0"
+            />
+            <span className="h-5 w-px bg-[#E2E8F0] shrink-0 hidden sm:block" aria-hidden="true" />
+            <span className="font-display text-sm sm:text-base font-bold tracking-tight text-[#111827] truncate">
               Painel Administrativo
             </span>
           </div>
@@ -72,16 +72,16 @@ export function AdminDashboardView({
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-[#F1F5F9] text-xs sm:text-sm font-medium text-[#0F294A] whitespace-nowrap transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-[#FFF4E5] hover:border-[#FE8100] text-xs sm:text-sm font-medium text-[#111827] whitespace-nowrap transition-colors"
             >
-              <ExternalLink className="w-4 h-4 text-[#0058BE] shrink-0" aria-hidden="true" />
+              <ExternalLink className="w-4 h-4 text-[#FE8100] shrink-0" aria-hidden="true" />
               <span>Ver Vitrine Pública</span>
             </a>
 
             <button
               type="button"
               onClick={onLogout}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium text-[#64748B] hover:text-[#0F294A] hover:bg-[#F1F5F9] whitespace-nowrap transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium text-[#64748B] hover:text-[#111827] hover:bg-[#F1F5F9] whitespace-nowrap transition-colors"
             >
               <LogOut className="w-4 h-4 shrink-0" aria-hidden="true" />
               <span className="hidden sm:inline">Terminar Sessão</span>
@@ -94,7 +94,7 @@ export function AdminDashboardView({
         {/* Título + Botão + Novo Colaborador */}
         <div className="shrink-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h1 className="font-display text-[22px] md:text-[26px] font-bold text-[#0F294A] leading-tight">
+            <h1 className="font-display text-[22px] md:text-[26px] font-bold text-[#111827] leading-tight">
               Gestão da Equipa
             </h1>
             <p className="text-xs md:text-sm text-[#64748B] mt-0.5">
@@ -106,7 +106,7 @@ export function AdminDashboardView({
             <button
               type="button"
               onClick={onResetSeed}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-[#F1F5F9] text-xs font-medium text-[#64748B] hover:text-[#0F294A] whitespace-nowrap transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#CBD5E1] bg-white hover:bg-[#F1F5F9] text-xs font-medium text-[#64748B] hover:text-[#111827] whitespace-nowrap transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
               <span>Restaurar Base</span>
@@ -115,7 +115,7 @@ export function AdminDashboardView({
             <button
               type="button"
               onClick={onOpenCreate}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#0F294A] hover:bg-[#1E3A8A] text-white text-sm font-medium whitespace-nowrap transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#FE8100] hover:bg-[#E57400] text-[#111827] text-sm font-semibold whitespace-nowrap transition-colors"
             >
               <Plus className="w-4 h-4" aria-hidden="true" />
               <span>Novo Colaborador</span>
@@ -129,7 +129,7 @@ export function AdminDashboardView({
             <p className="text-xs font-medium text-[#64748B]">Total de Colaboradores</p>
             <p
               data-testid="kpi-total"
-              className="mt-1.5 font-display text-2xl md:text-[26px] font-bold text-[#0F294A] tabular-nums leading-none"
+              className="mt-1.5 font-display text-2xl md:text-[26px] font-bold text-[#111827] tabular-nums leading-none"
             >
               {metrics.total}
             </p>
@@ -149,7 +149,7 @@ export function AdminDashboardView({
             <p className="text-xs font-medium text-[#64748B]">Em Férias</p>
             <p
               data-testid="kpi-ferias"
-              className="mt-1.5 font-display text-2xl md:text-[26px] font-bold text-[#92400E] tabular-nums leading-none"
+              className="mt-1.5 font-display text-2xl md:text-[26px] font-bold text-[#C25900] tabular-nums leading-none"
             >
               {metrics.ferias}
             </p>
@@ -183,7 +183,7 @@ export function AdminDashboardView({
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Buscar por nome, cargo, e-mail ou telefone..."
-                className="w-full h-9 pl-9 pr-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#1E293B] placeholder:text-[#64748B] focus:outline-none focus:border-[#3B82F6] focus:ring-3 focus:ring-[#3B82F6]/20"
+                className="w-full h-9 pl-9 pr-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#111827] placeholder:text-[#64748B] focus:outline-none focus:border-[#FE8100] focus:ring-3 focus:ring-[#FE8100]/20"
               />
             </div>
 
@@ -202,8 +202,8 @@ export function AdminDashboardView({
                     aria-pressed={active}
                     className={`px-3 py-1 rounded-md text-xs font-medium whitespace-nowrap transition-colors ${
                       active
-                        ? 'bg-white text-[#0F294A] shadow-xs font-semibold'
-                        : 'text-[#64748B] hover:text-[#0F294A]'
+                        ? 'bg-[#FE8100] text-[#111827] shadow-xs font-semibold'
+                        : 'text-[#64748B] hover:text-[#111827]'
                     }`}
                   >
                     {tab}
@@ -242,7 +242,7 @@ export function AdminDashboardView({
                 {filtered.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="px-4 py-12 text-center">
-                      <p className="font-display text-base font-semibold text-[#0F294A]">
+                      <p className="font-display text-base font-semibold text-[#111827]">
                         Nenhum colaborador encontrado
                       </p>
                       <p className="mt-1 text-sm text-[#64748B]">
@@ -254,7 +254,7 @@ export function AdminDashboardView({
                   filtered.map((person) => {
                     const statusStyle = STATUS_META[person.status];
                     return (
-                      <tr key={person.id} className="hover:bg-[#F1F5F9] transition-colors">
+                      <tr key={person.id} className="hover:bg-[#FFFAF5] transition-colors">
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3 min-w-[220px]">
                             <CollaboratorAvatar
@@ -264,7 +264,7 @@ export function AdminDashboardView({
                               textSizeClass="text-xs"
                             />
                             <div className="min-w-0">
-                              <p className="font-display text-sm font-semibold text-[#0B1C30] truncate">
+                              <p className="font-display text-sm font-semibold text-[#111827] truncate">
                                 {person.nome_completo}
                               </p>
                               <p className="text-xs text-[#64748B] truncate">{person.email}</p>
@@ -272,15 +272,15 @@ export function AdminDashboardView({
                           </div>
                         </td>
 
-                        <td className="px-4 py-3 text-sm text-[#1E293B] whitespace-nowrap">
+                        <td className="px-4 py-3 text-sm text-[#111827] whitespace-nowrap">
                           {person.cargo}
                         </td>
 
-                        <td className="px-4 py-3 font-mono text-xs text-[#1E293B] tabular-nums whitespace-nowrap">
+                        <td className="px-4 py-3 font-mono text-xs text-[#111827] tabular-nums whitespace-nowrap">
                           {person.ano_contratacao}
                         </td>
 
-                        <td className="px-4 py-3 text-xs text-[#1E293B] tabular-nums whitespace-nowrap">
+                        <td className="px-4 py-3 text-xs text-[#111827] tabular-nums whitespace-nowrap">
                           {person.telefone}
                         </td>
 
@@ -292,7 +292,7 @@ export function AdminDashboardView({
                             onChange={(e) =>
                               onStatusChange(person.id, e.target.value as CollaboratorStatus)
                             }
-                            className={`h-8 pl-2.5 pr-6 rounded-full text-[11px] font-semibold uppercase tracking-[0.04em] border border-transparent focus:outline-none focus:ring-2 focus:ring-[#3B82F6] cursor-pointer ${statusStyle.bgClass} ${statusStyle.textClass}`}
+                            className={`h-8 pl-2.5 pr-6 rounded-full text-[11px] font-semibold uppercase tracking-[0.04em] border border-transparent focus:outline-none focus:ring-2 focus:ring-[#FE8100] cursor-pointer ${statusStyle.bgClass} ${statusStyle.textClass}`}
                           >
                             <option value="Ativo">Ativo</option>
                             <option value="Férias">Férias</option>
@@ -306,9 +306,9 @@ export function AdminDashboardView({
                               type="button"
                               onClick={() => onEditCollaborator(person)}
                               aria-label={`Editar ${person.nome_completo}`}
-                              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-xs font-medium text-[#1E293B] transition-colors"
+                              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md border border-[#CBD5E1] bg-white hover:bg-[#FFF4E5] hover:border-[#FE8100] text-xs font-medium text-[#111827] transition-colors"
                             >
-                              <Edit3 className="w-3.5 h-3.5 text-[#0058BE]" aria-hidden="true" />
+                              <Edit3 className="w-3.5 h-3.5 text-[#C25900]" aria-hidden="true" />
                               <span>Editar</span>
                             </button>
 

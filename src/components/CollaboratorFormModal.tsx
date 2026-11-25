@@ -102,7 +102,7 @@ export function CollaboratorFormModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0F294A]/40"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#111827]/45"
       role="dialog"
       aria-modal="true"
       aria-labelledby="collaborator-form-title"
@@ -112,7 +112,7 @@ export function CollaboratorFormModal({
           <div>
             <h2
               id="collaborator-form-title"
-              className="font-display text-xl font-semibold text-[#0F294A]"
+              className="font-display text-xl font-semibold text-[#111827]"
             >
               {mode === 'create'
                 ? 'Novo Colaborador'
@@ -126,7 +126,7 @@ export function CollaboratorFormModal({
             type="button"
             onClick={onClose}
             aria-label="Fechar formulário"
-            className="p-1.5 rounded-lg text-[#64748B] hover:text-[#0F294A] hover:bg-[#F1F5F9]"
+            className="p-1.5 rounded-lg text-[#64748B] hover:text-[#111827] hover:bg-[#F1F5F9]"
           >
             <X className="w-5 h-5" />
           </button>
@@ -143,7 +143,7 @@ export function CollaboratorFormModal({
             />
             <div className="flex-1 min-w-0 space-y-2">
               <div className="flex flex-wrap items-center gap-2">
-                <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-[#F1F5F9] text-xs font-medium text-[#0F294A] cursor-pointer">
+                <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#CBD5E1] bg-white hover:bg-[#FFF4E5] hover:border-[#FE8100] text-xs font-medium text-[#111827] cursor-pointer">
                   <Upload className="w-3.5 h-3.5" aria-hidden="true" />
                   <span>Carregar Foto</span>
                   <input
@@ -175,7 +175,7 @@ export function CollaboratorFormModal({
                   value={form.foto_perfil ?? ''}
                   onChange={(e) => updateField('foto_perfil', e.target.value)}
                   placeholder="Ou cole o URL da imagem (opcional — vazio gera iniciais)"
-                  className="w-full h-9 px-3 rounded-lg border border-[#CBD5E1] bg-white text-xs text-[#1E293B] focus:outline-none focus:border-[#3B82F6] focus:ring-3 focus:ring-[#3B82F6]/20"
+                  className="w-full h-9 px-3 rounded-lg border border-[#CBD5E1] bg-white text-xs text-[#1E293B] focus:outline-none focus:border-[#FE8100] focus:ring-3 focus:ring-[#FE8100]/20"
                 />
               </div>
               {errors.foto_perfil && (
@@ -198,7 +198,7 @@ export function CollaboratorFormModal({
                 value={form.nome_completo}
                 onChange={(e) => updateField('nome_completo', e.target.value)}
                 placeholder="ex.: Mariana Costa"
-                className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#1E293B] focus:outline-none focus:border-[#3B82F6] focus:ring-3 focus:ring-[#3B82F6]/20"
+                className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#1E293B] focus:outline-none focus:border-[#FE8100] focus:ring-3 focus:ring-[#FE8100]/20"
               />
               {errors.nome_completo && (
                 <p className="mt-1 text-xs text-[#BA1A1A]">{errors.nome_completo}</p>
@@ -218,7 +218,7 @@ export function CollaboratorFormModal({
                 value={form.cargo}
                 onChange={(e) => updateField('cargo', e.target.value)}
                 placeholder="ex.: Consultor Comercial"
-                className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#1E293B] focus:outline-none focus:border-[#3B82F6] focus:ring-3 focus:ring-[#3B82F6]/20"
+                className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#1E293B] focus:outline-none focus:border-[#FE8100] focus:ring-3 focus:ring-[#FE8100]/20"
               />
               {errors.cargo && <p className="mt-1 text-xs text-[#BA1A1A]">{errors.cargo}</p>}
             </div>
@@ -236,7 +236,7 @@ export function CollaboratorFormModal({
                 value={form.telefone}
                 onChange={(e) => updateField('telefone', e.target.value)}
                 placeholder="ex.: +258 84 123 4567"
-                className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm tabular-nums text-[#1E293B] focus:outline-none focus:border-[#3B82F6] focus:ring-3 focus:ring-[#3B82F6]/20"
+                className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm tabular-nums text-[#1E293B] focus:outline-none focus:border-[#FE8100] focus:ring-3 focus:ring-[#FE8100]/20"
               />
               {errors.telefone && (
                 <p className="mt-1 text-xs text-[#BA1A1A]">{errors.telefone}</p>
@@ -256,7 +256,7 @@ export function CollaboratorFormModal({
                 value={form.email}
                 onChange={(e) => updateField('email', e.target.value)}
                 placeholder="nome@meridian.corp"
-                className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#1E293B] focus:outline-none focus:border-[#3B82F6] focus:ring-3 focus:ring-[#3B82F6]/20"
+                className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#1E293B] focus:outline-none focus:border-[#FE8100] focus:ring-3 focus:ring-[#FE8100]/20"
               />
               {errors.email && <p className="mt-1 text-xs text-[#BA1A1A]">{errors.email}</p>}
             </div>
@@ -276,7 +276,7 @@ export function CollaboratorFormModal({
                 value={form.ano_contratacao}
                 onChange={(e) => updateField('ano_contratacao', e.target.value)}
                 placeholder="2023"
-                className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white font-mono text-sm tabular-nums text-[#1E293B] focus:outline-none focus:border-[#3B82F6] focus:ring-3 focus:ring-[#3B82F6]/20"
+                className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white font-mono text-sm tabular-nums text-[#1E293B] focus:outline-none focus:border-[#FE8100] focus:ring-3 focus:ring-[#FE8100]/20"
               />
               {errors.ano_contratacao && (
                 <p className="mt-1 text-xs text-[#BA1A1A]">{errors.ano_contratacao}</p>
@@ -294,7 +294,7 @@ export function CollaboratorFormModal({
                 id="field-status"
                 value={form.status}
                 onChange={(e) => updateField('status', e.target.value as CollaboratorStatus)}
-                className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#1E293B] focus:outline-none focus:border-[#3B82F6] focus:ring-3 focus:ring-[#3B82F6]/20"
+                className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#1E293B] focus:outline-none focus:border-[#FE8100] focus:ring-3 focus:ring-[#FE8100]/20"
               >
                 {COLLABORATOR_STATUSES.map((s) => (
                   <option key={s} value={s}>
@@ -315,7 +315,7 @@ export function CollaboratorFormModal({
             </button>
             <button
               type="submit"
-              className="px-5 py-2 rounded-lg bg-[#0F294A] hover:bg-[#1E3A8A] text-white text-sm font-medium transition-colors"
+              className="px-5 py-2 rounded-lg bg-[#FE8100] hover:bg-[#E57400] text-[#111827] text-sm font-semibold transition-colors"
             >
               {mode === 'create' ? 'Guardar Colaborador' : 'Atualizar Colaborador'}
             </button>

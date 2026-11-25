@@ -35,25 +35,32 @@ export function AdminLoginView({ onSuccess, onNavigatePublic }: AdminLoginViewPr
   return (
     <div className="h-screen w-full overflow-y-auto bg-[#F8FAFC] flex flex-col justify-center items-center px-4 py-6">
       <div className="w-full max-w-md bg-white border border-[#E2E8F0] rounded-xl p-8 shadow-level-3">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-lg bg-[#0F294A] text-white flex items-center justify-center shrink-0">
-            <Lock className="w-5 h-5" aria-hidden="true" />
-          </div>
-          <div>
-            <h1 className="font-display text-xl font-bold text-[#0F294A]">
-              Painel Administrativo
-            </h1>
-            <p className="text-xs text-[#64748B]">
-              Acesso restrito para gestão de colaboradores
-            </p>
+        <div className="pb-5 border-b border-[#E2E8F0]">
+          <img
+            src="/assets/aistudio/logo-transparent_81b43745.png"
+            alt="Lecasu — Energy and Engineering Solutions"
+            className="h-10 w-auto object-contain"
+          />
+          <div className="mt-4 flex items-center gap-2.5">
+            <div className="h-8 w-8 rounded-lg bg-[#FFF4E5] border border-[#FFD6A8] text-[#C25900] flex items-center justify-center shrink-0">
+              <Lock className="w-4 h-4" aria-hidden="true" />
+            </div>
+            <div>
+              <h1 className="font-display text-lg font-bold text-[#111827]">
+                Painel Administrativo
+              </h1>
+              <p className="text-xs text-[#64748B]">
+                Acesso restrito para gestão de colaboradores
+              </p>
+            </div>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} noValidate className="mt-6 space-y-4">
+        <form onSubmit={handleSubmit} noValidate className="mt-5 space-y-4">
           <div>
             <label
               htmlFor="admin-login-email"
-              className="block text-xs font-medium text-[#1E293B] mb-1.5"
+              className="block text-xs font-medium text-[#111827] mb-1.5"
             >
               E-mail
             </label>
@@ -67,14 +74,14 @@ export function AdminLoginView({ onSuccess, onNavigatePublic }: AdminLoginViewPr
                 if (error) setError(null);
               }}
               placeholder="admin@meridian.corp"
-              className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#1E293B] focus:outline-none focus:border-[#3B82F6] focus:ring-3 focus:ring-[#3B82F6]/20"
+              className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#111827] focus:outline-none focus:border-[#FE8100] focus:ring-3 focus:ring-[#FE8100]/20"
             />
           </div>
 
           <div>
             <label
               htmlFor="admin-login-password"
-              className="block text-xs font-medium text-[#1E293B] mb-1.5"
+              className="block text-xs font-medium text-[#111827] mb-1.5"
             >
               Palavra-passe
             </label>
@@ -88,7 +95,7 @@ export function AdminLoginView({ onSuccess, onNavigatePublic }: AdminLoginViewPr
                 if (error) setError(null);
               }}
               placeholder="••••••••••••"
-              className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#1E293B] focus:outline-none focus:border-[#3B82F6] focus:ring-3 focus:ring-[#3B82F6]/20"
+              className="w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-white text-sm text-[#111827] focus:outline-none focus:border-[#FE8100] focus:ring-3 focus:ring-[#FE8100]/20"
             />
           </div>
 
@@ -103,15 +110,15 @@ export function AdminLoginView({ onSuccess, onNavigatePublic }: AdminLoginViewPr
 
           <button
             type="submit"
-            className="w-full h-10 rounded-lg bg-[#0F294A] hover:bg-[#1E3A8A] text-white text-sm font-medium transition-colors"
+            className="w-full h-10 rounded-lg bg-[#FE8100] hover:bg-[#E57400] text-[#111827] text-sm font-semibold transition-colors"
           >
             Entrar no Painel
           </button>
         </form>
 
         <div className="mt-6 pt-5 border-t border-[#E2E8F0] space-y-3">
-          <div className="rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] p-3 text-xs text-[#44474E]">
-            <p className="font-semibold text-[#0F294A]">Credenciais de demonstração</p>
+          <div className="rounded-lg bg-[#FFFAF5] border border-[#FFD6A8] p-3 text-xs text-[#44474E]">
+            <p className="font-semibold text-[#111827]">Credenciais de demonstração</p>
             <p className="mt-1 font-mono text-[11px] tabular-nums">
               E-mail: {DEMO_ADMIN_EMAIL}
             </p>
@@ -125,7 +132,7 @@ export function AdminLoginView({ onSuccess, onNavigatePublic }: AdminLoginViewPr
                 setPassword(DEMO_ADMIN_PASS);
                 setError(null);
               }}
-              className="mt-2 text-xs font-semibold text-[#0058BE] hover:underline"
+              className="mt-2 text-xs font-semibold text-[#C25900] hover:underline"
             >
               Preencher automaticamente
             </button>
@@ -137,7 +144,7 @@ export function AdminLoginView({ onSuccess, onNavigatePublic }: AdminLoginViewPr
               e.preventDefault();
               onNavigatePublic();
             }}
-            className="block text-center text-xs font-medium text-[#64748B] hover:text-[#0F294A]"
+            className="block text-center text-xs font-medium text-[#64748B] hover:text-[#111827]"
           >
             ← Voltar à Vitrine Pública
           </a>

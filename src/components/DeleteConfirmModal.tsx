@@ -16,7 +16,7 @@ export function DeleteConfirmModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0F294A]/40"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#111827]/45"
       role="dialog"
       aria-modal="true"
       aria-labelledby="delete-modal-title"
@@ -30,7 +30,7 @@ export function DeleteConfirmModal({
             <div>
               <h2
                 id="delete-modal-title"
-                className="font-display text-lg font-semibold text-[#0F294A]"
+                className="font-display text-lg font-semibold text-[#111827]"
               >
                 Confirmar Exclusão
               </h2>
@@ -41,7 +41,7 @@ export function DeleteConfirmModal({
             type="button"
             onClick={onCancel}
             aria-label="Cancelar exclusão"
-            className="p-1.5 rounded-lg text-[#64748B] hover:text-[#0F294A] hover:bg-[#F1F5F9]"
+            className="p-1.5 rounded-lg text-[#64748B] hover:text-[#111827] hover:bg-[#F1F5F9]"
           >
             <X className="w-5 h-5" />
           </button>
@@ -49,7 +49,7 @@ export function DeleteConfirmModal({
 
         <p className="mt-4 text-sm text-[#44474E]">
           Tem a certeza de que pretende excluir{' '}
-          <strong className="text-[#0F294A]">{collaborator.nome_completo}</strong> ({collaborator.cargo})?
+          <strong className="text-[#111827]">{collaborator.nome_completo}</strong> ({collaborator.cargo})?
         </p>
 
         <div className="mt-6 flex items-center justify-end gap-3">

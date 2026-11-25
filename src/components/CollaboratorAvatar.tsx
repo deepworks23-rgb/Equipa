@@ -9,10 +9,10 @@ interface CollaboratorAvatarProps {
 }
 
 const AVATAR_TONES = [
-  'bg-[#0F294A] text-white',
-  'bg-[#30476A] text-white',
-  'bg-[#1E3A8A] text-white',
-  'bg-[#004395] text-white',
+  'bg-[#111827] text-white',
+  'bg-[#FE8100] text-[#111827]',
+  'bg-[#27272A] text-white',
+  'bg-[#C25900] text-white',
 ];
 
 function pickTone(name: string): string {
@@ -38,7 +38,7 @@ export function CollaboratorAvatar({
         alt={`Foto de ${fullName}`}
         referrerPolicy="no-referrer"
         onError={() => setFailed(true)}
-        className={`${sizeClass} rounded-full object-cover border border-[#E2E8F0] shrink-0 bg-[#EFF4FF]`}
+        className={`${sizeClass} rounded-full object-cover border border-[#E2E8F0] shrink-0 bg-[#FFF4E5]`}
       />
     );
   }
@@ -46,7 +46,7 @@ export function CollaboratorAvatar({
   return (
     <div
       aria-hidden="true"
-      className={`${sizeClass} ${pickTone(fullName)} rounded-full flex items-center justify-center font-display font-semibold tracking-tight shrink-0 border border-[#0F294A]/10 ${textSizeClass}`}
+      className={`${sizeClass} ${pickTone(fullName)} rounded-full flex items-center justify-center font-display font-semibold tracking-tight shrink-0 border border-[#111827]/10 ${textSizeClass}`}
     >
       {getInitials(fullName)}
     </div>

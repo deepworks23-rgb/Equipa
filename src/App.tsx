@@ -199,9 +199,9 @@ export default function App() {
         <div
           role="status"
           aria-live="polite"
-          className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 bg-[#0F294A] text-white px-4 py-3 rounded-lg shadow-level-3 text-sm"
+          className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 bg-[#111827] text-white px-4 py-3 rounded-lg shadow-level-3 text-sm"
         >
-          <CheckCircle2 className="w-4 h-4 text-[#4EDEA3] shrink-0" aria-hidden="true" />
+          <CheckCircle2 className="w-4 h-4 text-[#FE8100] shrink-0" aria-hidden="true" />
           <span>{notice}</span>
           <button
             type="button"
