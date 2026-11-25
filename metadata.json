@@ -1,0 +1,6 @@
+{
+  "name": "Executive Talent Matrix",
+  "description": "Corporate collaborator directory and HR talent lifecycle administration console.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
