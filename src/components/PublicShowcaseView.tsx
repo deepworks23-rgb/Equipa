@@ -266,7 +266,7 @@ export function PublicShowcaseView({
 
       {/* Rodapé Institucional Limpo — Sem links administrativos */}
       <footer className="shrink-0 border-t border-[#E2E8F0] bg-white">
-        <div className="max-w-[1440px] mx-auto px-3 sm:px-4 md:px-8 py-2 sm:py-3 flex items-center justify-between gap-2 sm:gap-4 text-[11px] sm:text-xs text-[#64748B]">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-4 md:px-8 py-2 sm:py-3 flex items-center justify-center text-center text-[11px] sm:text-xs text-[#64748B]">
           <p className="truncate">© {new Date().getFullYear()} Lecasu · Energy and Engineering Solutions</p>
         </div>
       </footer>
